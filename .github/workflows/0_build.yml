@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   build:
-    name: Job - Build Docker image
+    name: Job - Build image
     runs-on: ubuntu-latest
     steps:
       # By default, this action uses the Git context,
