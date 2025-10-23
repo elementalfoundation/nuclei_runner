@@ -1,0 +1,51 @@
+name: Workflow - Build Docker image
+on: push
+
+# The built-in GitHub token lets your workflow authenticate to ghcr.io without needing a personal access token.
+# Set and control what the GITHUB_TOKEN can do:
+permissions:
+  contents: read
+  packages: write # write docker images to the registry
+
+jobs:
+  build:
+    name: Job - Build Docker image
+    runs-on: ubuntu-latest
+    steps:
+      # By default, this action uses the Git context,
+      # so you don't need to use the actions/checkout action to check out the
+      # repository as this will be done directly by BuildKit.
+      - name: Check out that code.
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub container registry
+        uses: docker/login-action@v3 #TODO: pin digests (immutable), not versions
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Spin up BuildX: docker build engine with multi-architecture (arm, amd64) builds and stuff.
+      # https://github.com/docker/setup-buildx-action
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Build the actual image and push to the registry
+      # https://github.com/docker/build-push-action
+      - name: Build the image and push to the registry
+        uses: docker/build-push-action@v6
+        with:
+          # context tells Docker what files to include when building the image
+          # Here, the dot (.) means “the current directory,” which in a GitHub Actions workflow is your repository’s root (after actions/checkout runs).
+          # So Docker will send everything in your repo (except files ignored in .dockerignore) to the Docker daemon, and it will look for a Dockerfile there unless you tell it otherwise with file:.
+          context: .
+          # Push the built image actually upwards.
+          # It won't by default (or when set to false), which is useful in case you just want an image built and available locally within the task runner to performs tests on it or smth.
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/sandbox:latest
+            ghcr.io/${{ github.repository_owner }}/sandbox:${{ github.sha }}
+          # Cache result for next time. The type of cache is 'gha' (= Github Action Cache), and 'max' makes all layers available for caching. Costs more in storage but Github seems fine with it.
+          cache-to: type=gha,mode=max
+          # There might be a cache result from last time, feel free to use it. It'll be of type gha too.
+          cache-from: type=gha
