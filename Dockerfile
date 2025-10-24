@@ -5,5 +5,7 @@ FROM projectdiscovery/nuclei@sha256:aeb5ea2db32a252b8135707d2ad0e89b90e19a18ea78
 WORKDIR /scans
 
 # Default command when you run "docker build -t nuclei_runner . && docker run nuclei_runner" (can be overridden at runtime)
+# This is in so-called 'json form', instead of just writing 'ENTRYPOINT nuclei'.
+# Apparently that makes a difference in how well it respond to stop signals and such.
 ENTRYPOINT ["nuclei"] # the executable that is called when you run the above
 CMD ["-version"]   # default arguments to that executable if none are provided
