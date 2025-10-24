@@ -43,7 +43,7 @@ jobs:
           echo "Day of the week number: $day_of_week_number"
 
           # Write the target list to a file
-          targetlist=${day_of_week_number}_${day_of_week}.yaml
+          targetlist=${day_of_week_number}-${day_of_week}.yaml
           echo "Target list: ${targetlist}"
           cp targets/${targetlist} targets/targets.txt
 
