@@ -6,10 +6,10 @@ jobs:
     name: Job - run
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/${{ github.repository_owner }}/sandbox:latest
+      image: ghcr.io/${{ github.repository_owner }}/nuclei_runner:latest
       credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        username: ${{ github.actor }} # provided by Github
+        password: ${{ secrets.GITHUB_TOKEN }} # provided by Github
       env:
         APP_ENV: production
         LOG_LEVEL: info
@@ -19,6 +19,8 @@ jobs:
         run: |
           # Now we are inside the container
           echo "Morning. We're in $APP_ENV, log level $LOG_LEVEL."
+          echo "Here we will gather the list of targets, maybe in render_targets.sg or smth, and forward them to nuclei"
+          nuclei -version
 
 # TODO: Extra hardening
 # Pin by digest to avoid surprise upgrades:
