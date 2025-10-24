@@ -3,6 +3,7 @@ FROM projectdiscovery/nuclei@sha256:aeb5ea2db32a252b8135707d2ad0e89b90e19a18ea78
 
 # Optional: working directory for reports
 WORKDIR /scans
+COPY targets.txt /scans/
 
 # Default command when you run "docker build -t nuclei_runner . && docker run nuclei_runner" (can be overridden at runtime)
 # This is in so-called 'json form', instead of just writing 'ENTRYPOINT nuclei'.
