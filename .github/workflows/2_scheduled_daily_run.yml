@@ -50,7 +50,7 @@ jobs:
 
       - name: Perform run.
         run: |
-          nuclei -list targets.txt -cloud-upload
+          nuclei -list targets/targets.txt -cloud-upload
 
 # TODO: Extra hardening
 # Pin by digest to avoid surprise upgrades:
