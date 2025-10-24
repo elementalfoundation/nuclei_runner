@@ -43,7 +43,9 @@ jobs:
           echo "Day of the week number: $day_of_week_number"
 
           # Write the target list to a file
-          cp targets/$day_of_week_number_$day_of_week.yaml targets/targets.txt
+          targetlist=$(day_of_week_number)_$(day_of_week).yaml
+          echo "Target list: $targetlist"
+          cp targets/$(targetlist) targets/targets.txt
 
 
       - name: Perform run.
