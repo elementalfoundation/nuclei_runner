@@ -9,23 +9,32 @@ jobs:
   run:
     name: Job - run
     runs-on: ubuntu-latest
+    
     container:
       image: ghcr.io/${{ github.repository_owner }}/nuclei_runner:latest
+      
       credentials:
         username: ${{ github.actor }} # provided by Github
         password: ${{ secrets.GITHUB_TOKEN }} # provided by Github
+
       env:
         APP_ENV: production
         LOG_LEVEL: info
         # API_TOKEN: ${{ secrets.API_TOKEN }}   # pulled from repo/org secrets
+
     steps:
-      - name: Perform run.
+      - name: Checking in.
         run: |
           # Now we are inside the container
           echo "Morning. We're in $APP_ENV, log level $LOG_LEVEL."
-          echo "Here we will gather the list of targets, maybe in render_targets.sg or smth, and forward them to nuclei"
-          echo "Starting Nuclei scan of targets.txt"
-          nuclei -list scans/targets.txt
+
+      # By default we use the targets.txt in the repo (filled by default with test domains)
+      - name: Check out that code.
+        uses: actions/checkout@v4
+
+      - name: Perform run.
+        run: |
+          nuclei -list targets.txt
 
 # TODO: Extra hardening
 # Pin by digest to avoid surprise upgrades:
