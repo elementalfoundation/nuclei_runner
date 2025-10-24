@@ -8,7 +8,7 @@ on:
       targetFile:
         description: "file with targets, located in repo"
         required: true
-        default: "test_targets.txt"
+        default: "targets.txt"
         type: string
 
 jobs:
