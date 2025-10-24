@@ -1,5 +1,15 @@
 name: Workflow - Run
-on: push
+on:
+  push:
+  schedule:
+    - cron: "0 14 * * *" # Run every day at 14:00 UTC.
+  workflow_dispatch:
+    inputs:
+      targetFile:
+        description: "file with targets, located in repo"
+        required: true
+        default: "test_targets.txt"
+        type: string
 
 jobs:
   run:
