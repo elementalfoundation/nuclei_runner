@@ -53,6 +53,7 @@ jobs:
   # Quick sanity check to see if the Docker container runs its default command
   sanity_check:
     name: Job - Sanity check the image
+    needs: build # No sense in running it if the build job failed.
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/${{ github.repository_owner }}/nuclei_runner:latest
