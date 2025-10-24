@@ -31,7 +31,7 @@ jobs:
           echo "Morning. We're in $APP_ENV, log level $LOG_LEVEL."
           echo "Here we will gather the list of targets, maybe in render_targets.sg or smth, and forward them to nuclei"
           echo "Starting Nuclei scan of targets.txt"
-          nuclei -u targets.txt
+          nuclei -l targets.txt
 
 # TODO: Extra hardening
 # Pin by digest to avoid surprise upgrades:
