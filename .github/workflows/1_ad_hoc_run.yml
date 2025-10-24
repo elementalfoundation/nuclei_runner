@@ -1,8 +1,5 @@
-name: Workflow - Run
+name: Workflow - Ad-hoc run
 on:
-  push:
-  schedule:
-    - cron: "0 14 * * *" # Run every day at 14:00 UTC.
   workflow_dispatch:
 
 jobs:

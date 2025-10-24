@@ -1,0 +1,6 @@
+svc-public-eu-west-1b:
+  - 10.2.3.0/24
+Stage-EU-Public-B:
+  - 10.1.2.0/24
+usa-prd-db-us-east-1a:
+  - 10.5.7.0/24

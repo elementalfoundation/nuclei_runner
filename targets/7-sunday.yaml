@@ -1,0 +1,6 @@
+Prod-EU1-Public-A:
+  - 10.0.1.0/24
+Stage-EU-Private-B:
+  - 10.1.4.0/24 
+sydney-prd-db-ap-southeast-2b:
+  - 10.6.8.0/24 
