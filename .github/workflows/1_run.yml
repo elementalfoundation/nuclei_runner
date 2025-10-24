@@ -4,12 +4,6 @@ on:
   schedule:
     - cron: "0 14 * * *" # Run every day at 14:00 UTC.
   workflow_dispatch:
-    inputs:
-      targetFile:
-        description: "file with targets, located in repo"
-        required: true
-        default: "targets.txt"
-        type: string
 
 jobs:
   run:
@@ -31,7 +25,7 @@ jobs:
           echo "Morning. We're in $APP_ENV, log level $LOG_LEVEL."
           echo "Here we will gather the list of targets, maybe in render_targets.sg or smth, and forward them to nuclei"
           echo "Starting Nuclei scan of targets.txt"
-          nuclei -l targets.txt
+          nuclei -list scans/targets.txt
 
 # TODO: Extra hardening
 # Pin by digest to avoid surprise upgrades:
