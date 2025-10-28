@@ -1,8 +1,5 @@
-svc-private-eu-west-1c:
-  - 10.2.6.0/24
-Prod-EU1-Private-B:
-  - 10.0.4.0/24
-usa-prd-private-us-east-1a:
-  - 10.5.4.0/24
-sydney-prd-private-ap-southeast-2b:
-  - 10.6.5.0/24 
+targets:
+  # public scannable domain
+  - scanme.sh
+  # my own domain
+  - dietervds.be
