@@ -16,6 +16,8 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }} # provided by Github
 
       env:
+        APP_ENV: production
+        LOG_LEVEL: info
         # Nuclei API key for free and anonymous uploads to Nuclei's cloud  ("Project Discovery, PDCP")
         # pulled from repo/org secrets
         PDCP_API_KEY: ${{ secrets.PDCP_API_KEY }}
@@ -40,7 +42,7 @@ jobs:
           echo "Day of the week number: $day_of_week_number"
 
           # Write the target list to a file
-          targetlist=${day_of_week_number}-${day_of_week}.yaml
+          targetlist=${day_of_week_number}-${day_of_week}.txt
           echo "Target list: ${targetlist}"
           cp targets/${targetlist} targets/targets.txt
 
@@ -49,7 +51,7 @@ jobs:
           nuclei -list targets/targets.txt -cloud-upload
 
 # TODO: Extra hardening
-# Pin by digest to avoid surprise upgrades:
+# Pin by digest instead of using nuclei_runner:latest in our workflows:
 # After pushing, capture digest: docker inspect ghcr.io/OWNER/myapp:latest --format='{{index .RepoDigests 0}}'
 # Use that digest in your cron (image: ghcr.io/OWNER/myapp@sha256:...).
 # Promote via tags: build pushes :sha, then retag :prod only after tests pass; cron runs :prod.
