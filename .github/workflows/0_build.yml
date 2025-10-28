@@ -39,6 +39,7 @@ jobs:
           # Here, the dot (.) means “the current directory,” which in a GitHub Actions workflow is your repository’s root (after actions/checkout runs).
           # So Docker will send everything in your repo (except files ignored in .dockerignore) to the Docker daemon, and it will look for a Dockerfile there unless you tell it otherwise with file:.
           context: .
+
           # Push the built image actually upwards.
           # It won't by default (or when set to false), which is useful in case you just want an image built and available locally within the task runner to performs tests on it or smth.
           push: true
@@ -46,9 +47,9 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/nuclei_runner:latest
             ghcr.io/${{ github.repository_owner }}/nuclei_runner:${{ github.sha }}
           # Cache result for next time. The type of cache is 'gha' (= Github Action Cache), and 'max' makes all layers available for caching. Costs more in storage but Github seems fine with it.
-          cache-to: type=gha,mode=max
+          # cache-to: type=gha,mode=max
           # There might be a cache result from last time, feel free to use it. It'll be of type gha too.
-          cache-from: type=gha
+          # cache-from: type=gha
 
   # Quick sanity check to see if the Docker container runs its default command
   sanity_check:
