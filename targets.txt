@@ -1,2 +1,0 @@
-scanme.sh
-dietervds.be

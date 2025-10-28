@@ -35,7 +35,7 @@ jobs:
       - name: Gather target list, based on the day of the week.
         run: |
           # Get the day of the week
-          day_of_week=$(date +%A)
+          day_of_week=$(date +%A | tr '[:upper:]' '[:lower:]')
           echo "Day of the week: $day_of_week"
 
           # Get the number of the day of the week
@@ -43,11 +43,13 @@ jobs:
           echo "Day of the week number: $day_of_week_number"
 
           # Write the target list to a file
-          cp targets/$day_of_week_number_$day_of_week.yaml targets/targets.txt
+          targetlist=${day_of_week_number}-${day_of_week}.yaml
+          echo "Target list: ${targetlist}"
+          cp targets/${targetlist} targets/targets.txt
 
       - name: Perform run.
         run: |
-          nuclei -list targets.txt -cloud-upload
+          nuclei -list targets/targets.txt -cloud-upload
 
 # TODO: Extra hardening
 # Pin by digest to avoid surprise upgrades:
