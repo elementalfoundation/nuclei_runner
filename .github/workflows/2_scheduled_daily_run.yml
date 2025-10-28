@@ -2,7 +2,6 @@ name: Workflow - Scheduled daily run
 on:
   schedule:
     - cron: "0 14 * * *" # Run every day at 14:00 UTC.
-  workflow_dispatch:
 
 jobs:
   run:
@@ -17,8 +16,6 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }} # provided by Github
 
       env:
-        APP_ENV: production
-        LOG_LEVEL: info
         # Nuclei API key for free and anonymous uploads to Nuclei's cloud  ("Project Discovery, PDCP")
         # pulled from repo/org secrets
         PDCP_API_KEY: ${{ secrets.PDCP_API_KEY }}
