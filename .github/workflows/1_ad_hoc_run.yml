@@ -6,7 +6,7 @@ jobs:
   run:
     name: Job - run
     runs-on: ubuntu-latest
-    
+
     container:
       image: ghcr.io/${{ github.repository_owner }}/nuclei_runner:latest
 
@@ -17,9 +17,9 @@ jobs:
       env:
         APP_ENV: production
         LOG_LEVEL: info
-        # Nuclei API key for free and anonymous uploads to Nuclei's cloud  ("Project Discovery, PDCP") 
+        # Nuclei API key for free and anonymous uploads to Nuclei's cloud  ("Project Discovery, PDCP")
         # pulled from repo/org secrets
-        PDCP_API_KEY: ${{ secrets.PDCP_API_KEY }} 
+        PDCP_API_KEY: ${{ secrets.PDCP_API_KEY }}
 
     steps:
       - name: Checking in.
@@ -33,7 +33,7 @@ jobs:
 
       - name: Perform run.
         run: |
-          nuclei -list targets.txt -cloud-upload
+          nuclei -list targets/targets.txt -cloud-upload
 
 # TODO: Extra hardening
 # Pin by digest to avoid surprise upgrades:
