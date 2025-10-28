@@ -8,7 +8,7 @@ jobs:
   run:
     name: Job - run
     runs-on: ubuntu-latest
-    
+
     container:
       image: ghcr.io/${{ github.repository_owner }}/nuclei_runner:latest
 
@@ -19,9 +19,9 @@ jobs:
       env:
         APP_ENV: production
         LOG_LEVEL: info
-        # Nuclei API key for free and anonymous uploads to Nuclei's cloud  ("Project Discovery, PDCP") 
+        # Nuclei API key for free and anonymous uploads to Nuclei's cloud  ("Project Discovery, PDCP")
         # pulled from repo/org secrets
-        PDCP_API_KEY: ${{ secrets.PDCP_API_KEY }} 
+        PDCP_API_KEY: ${{ secrets.PDCP_API_KEY }}
 
     steps:
       - name: Checking in.
@@ -44,7 +44,6 @@ jobs:
 
           # Write the target list to a file
           cp targets/$day_of_week_number_$day_of_week.yaml targets/targets.txt
-
 
       - name: Perform run.
         run: |
