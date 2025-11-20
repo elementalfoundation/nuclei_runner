@@ -1,7 +1,8 @@
 name: Workflow - Scheduled daily run
 on:
-  schedule:
-    - cron: "0 14 * * *" # Run every day at 14:00 UTC.
+  push:
+  # schedule:
+    # - cron: "0 14 * * *" # Run every day at 14:00 UTC.
 
 jobs:
   run:
